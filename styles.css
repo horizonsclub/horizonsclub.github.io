@@ -45,14 +45,12 @@ body {
 /* Dropdown inside sidebar */
 .dropdown {
     position: relative;
-    /* margin-bottom: 10px; */
 }
 
 .dropdown-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding: 5px 0; */
 }
 
 .dropdown-link {
@@ -78,13 +76,12 @@ body {
 .dropdown-menu {
     display: none;
     list-style: none;
-    padding: 0;
+    /* padding: 0; */
     margin-left: 10px;
 }
 
 .dropdown-menu li a {
     display: block;
-    /* padding: 5px 0; */
     color: #3498db;
     text-decoration: none;
 }
