@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dropdownMenu = document.querySelector(".dropdown-menu");
 
     toggleBtn.addEventListener("click", function (e) {
-        e.stopPropagation(); // prevent the document click from closing it immediately
+        e.stopPropagation();
         dropdownMenu.style.display =
             dropdownMenu.style.display === "block" ? "none" : "block";
     });
