@@ -68,7 +68,7 @@ body {
     border: none;
     color: #3498db;
     font-size: 14px;
-    padding-left: 10px;
+    padding-left: 0px;
     cursor: pointer;
 }
 
@@ -77,7 +77,7 @@ body {
     display: none;
     list-style: none;
     padding: 0;
-    /* margin-left: 10px; */
+    margin-left: 10px;
 }
 
 .dropdown-menu li a {
