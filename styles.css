@@ -30,6 +30,7 @@ body {
     margin-bottom: 10px;
 }
 
+/* Sidebar links */
 .sidebar a {
     display: block;
     padding: 5px 0;
@@ -41,16 +42,67 @@ body {
     text-decoration: underline;
 }
 
+/* Dropdown inside sidebar */
+.dropdown {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.dropdown-link {
+    flex: 1;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.dropdown-link:hover {
+    text-decoration: underline;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    color: #3498db;
+    font-size: 14px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+/* Dropdown submenu */
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 5px 0;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    text-decoration: underline;
+}
+
 /* Content container (Prevents text from overlapping sidebar) */
 .content-container {
     flex: 1;
     margin-left: 220px; /* Adjusts to sidebar width */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers h1 */
+    align-items: center;
 }
 
-/* Centering the name (h1) */
+/* Main header */
 h1 {
     text-align: center;
     font-size: 32px;
@@ -59,8 +111,8 @@ h1 {
 
 /* Main content styles */
 .main-content {
-    width: 75%; /* Makes text wider */
-    max-width: 900px; /* Prevents text from stretching too much */
+    width: 75%;
+    max-width: 900px;
     padding: 20px;
 }
 
@@ -101,8 +153,7 @@ h3 a:hover {
     text-decoration: underline;
 }
 
-
-/* Responsive Fix: Adjust layout for smaller screens */
+/* Responsive layout fix for small screens */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -123,53 +174,3 @@ h3 a:hover {
         width: 90%;
     }
 }
-
- 
-
-/* Dropdown toggle button */
-.dropdown {
-    position: relative;
-    margin-bottom: 10px;
-}
-
-.dropdown-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.dropdown-link {
-    color: #3498db;
-    text-decoration: none;
-    padding: 5px 0;
-    flex: 1;
-}
-
-.dropdown-toggle {
-    background: none;
-    border: none;
-    color: #3498db;
-    cursor: pointer;
-    font-size: 14px;
-    padding-left: 10px;
-}
-
-.dropdown-menu {
-    display: none;
-    list-style: none;
-    padding: 0;
-    margin-left: 10px;
-}
-
-.dropdown-menu li a {
-    display: block;
-    padding: 5px 0;
-    color: #3498db;
-    text-decoration: none;
-}
-
-.dropdown-menu li a:hover {
-    text-decoration: underline;
-}
-
-
