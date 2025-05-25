@@ -127,26 +127,38 @@ h3 a:hover {
  
 
 /* Dropdown toggle button */
+.dropdown {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-link {
+    color: #3498db;
+    text-decoration: none;
+    padding: 5px 0;
+    flex: 1;
+}
+
 .dropdown-toggle {
     background: none;
     border: none;
-    font-size: 16px;
-    padding: 5px 0;
     color: #3498db;
-    text-align: left;
-    width: 100%;
     cursor: pointer;
-}
-
-.dropdown-toggle:focus {
-    outline: none;
+    font-size: 14px;
+    padding-left: 10px;
 }
 
 .dropdown-menu {
     display: none;
     list-style: none;
     padding: 0;
-    margin: 5px 0 0 10px;
+    margin-left: 10px;
 }
 
 .dropdown-menu li a {
