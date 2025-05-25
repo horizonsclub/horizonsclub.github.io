@@ -70,6 +70,12 @@ h1 {
     font-size: 22px;
 }
 
+.main-content h3 {
+    margin: 10px 0;
+    text-align: left;
+    font-size: 18px;
+}
+
 .main-content p {
     margin: 10px 0;
     font-size: 16px;
