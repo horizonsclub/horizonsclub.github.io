@@ -125,25 +125,39 @@ h3 a:hover {
 }
 
 
-/* Photo properties */
-.profile-pic {
-    width: 300px; /* Adjust size as needed */
-    height: 300px;
-    float: left;
-    margin: 0 20px 10px 0;
-    flex-shrink: 0;
+
+/* Dropdown toggle button */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 5px 0;
+    color: #3498db;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
 }
 
-.upright-pic {
-    width: 300px;
-    height: 400px;
-    float: left;
-    margin: 0 20px 10px 0;
-    flex-shrink: 0;
-} 
-
-.pubs {
-    max-width: 100%;
-    height: auto;
+.dropdown-toggle:focus {
+    outline: none;
 }
+
+.dropdown-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 10px;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 5px 0;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    text-decoration: underline;
+}
+
 
