@@ -35,3 +35,24 @@ window.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("dark-mode");
   }
 });
+
+/* Search bar */
+const searchInput = document.getElementById("search-input");
+
+if (searchInput && window.location.pathname.includes("articles.html")) {
+  searchInput.addEventListener("input", function () {
+    const query = this.value.toLowerCase();
+    const headings = document.querySelectorAll("h3");
+    const paragraphs = document.querySelectorAll("h3 + p");
+
+    headings.forEach((heading, i) => {
+      const text = heading.textContent.toLowerCase();
+      const paragraph = paragraphs[i];
+
+      const matches = text.includes(query);
+      heading.style.display = matches ? "" : "none";
+      if (paragraph) paragraph.style.display = matches ? "" : "none";
+    });
+  });
+}
+
