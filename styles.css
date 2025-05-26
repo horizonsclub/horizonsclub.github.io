@@ -102,8 +102,7 @@ h1, h2 {
 /* Layout */
 .container {
     max-width: 1000px;
-    margin: 40px auto;
-    padding: 20px;
+    margin: 0 auto;
 }
 
 .main-content {
