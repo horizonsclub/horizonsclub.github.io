@@ -13,7 +13,7 @@ html, body {
   background-color: #fff;
 }
 
-/* Page wrapper to hold header, content, and footer */
+/* Page wrapper */
 .page-wrapper {
   min-height: 100vh;
   display: flex;
@@ -116,7 +116,7 @@ h1, h2 {
   color: #3498db;
 }
 
-/* Content container */
+/* Content */
 .container {
   width: 100%;
   max-width: 1000px !important;
@@ -145,7 +145,7 @@ h1, h2 {
   color: #3498db;
 }
 
-/* Dark Mode */
+/* Dark mode */
 body.dark-mode {
   background-color: #121212;
   color: #e0e0e0;
@@ -171,7 +171,19 @@ body.dark-mode .dropdown-menu li a {
   color: #90caf9;
 }
 
-/* Search bar + Theme toggle */
+body.dark-mode .container {
+  color: #e0e0e0;
+}
+
+body.dark-mode .container a {
+  color: #90caf9;
+}
+
+body.dark-mode h3 a {
+  color: #90caf9;
+}
+
+/* Search and toggle */
 .header-tools {
   display: flex;
   align-items: center;
@@ -198,7 +210,7 @@ body.dark-mode #theme-toggle {
   color: #90caf9;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   .nav-bar {
     flex-direction: column;
