@@ -173,3 +173,47 @@ h1, h2 {
         display: block;
     }
 }
+
+/* Dark Mode */
+/* Dark theme styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode a {
+  color: #90caf9;
+}
+
+body.dark-mode .site-header {
+  background-color: #1f1f1f;
+  border-bottom: 1px solid #333;
+}
+
+body.dark-mode .site-footer {
+  background-color: #1f1f1f;
+  border-top: 1px solid #333;
+  color: #aaa;
+}
+
+body.dark-mode .dropdown-menu {
+  background-color: #1f1f1f;
+  border-color: #333;
+}
+
+body.dark-mode .dropdown-menu li a {
+  color: #90caf9;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #3498db;
+}
+
+body.dark-mode #theme-toggle {
+  color: #90caf9;
+}
