@@ -80,9 +80,9 @@ h1, h2 {
 }
 
 .nav-links a:hover {
-    background-color: #e6f0fb;
+    /* background-color: #e6f0fb;
     border-radius: 4px;
-    padding: 2px 6px;
+    padding: 2px 6px; */
     text-decoration: none;
 }
 
