@@ -117,8 +117,8 @@ h1, h2 {
 
 /* Content container */
 .container {
-    max-width: 1000px;
-    margin: 40px auto;
+    max-width: 1000px !important;
+    margin: 40px auto !important;
     padding: 20px;
     flex: 1;
     text-align: left;
