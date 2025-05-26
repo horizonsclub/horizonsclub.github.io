@@ -173,3 +173,28 @@ h3 a:hover {
         width: 90%;
     }
 }
+
+/* Footer */
+.site-footer {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-top: 1px solid #ccc;
+    margin-top: 40px;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+.footer-content a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
