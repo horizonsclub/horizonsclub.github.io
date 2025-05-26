@@ -120,14 +120,13 @@ h1, h2 {
     max-width: 1000px;
     margin: 40px auto;
     padding: 20px;
-    flex: 1; /* allows it to expand to push footer down */
+    flex: 1;
 }
 
 .main-content {
     text-align: left;
+    width: 100%;
     padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
 }
 
 /* Footer */
