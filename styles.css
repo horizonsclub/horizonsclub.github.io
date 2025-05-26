@@ -18,6 +18,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: inherit;
 }
 
 /* Links */
@@ -271,6 +272,10 @@ body.dark-mode #search-input {
 
 body.dark-mode #theme-toggle {
   color: #90caf9;
+}
+
+body.dark-mode .page-wrapper {
+  background-color: #121212;
 }
 
 /* Transitions */
