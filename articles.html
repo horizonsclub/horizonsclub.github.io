@@ -7,64 +7,70 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>Horizons</h2>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="team.html">Team</a>
-
-            <div class="dropdown">
-              <div class="dropdown-header">
-                <a href="articles.html" class="dropdown-link">Articles</a>
-                <button class="dropdown-toggle" aria-label="Toggle dropdown">▼</button>
-              </div>
-              <ul class="dropdown-menu">
-                <li><a href="articles/genes.html">Genes and Genomes</a></li>
-                <li><a href="articles/cells.html">Cells and Development</a></li>
-                <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
-                <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
-                <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
-                <li><a href="articles/biotech.html">Biotech and the Future</a></li>
-              </ul>
-            </div>
-            
-            <a href="journals.html">Journals</a>
-            <a href="contact.html">Contact</a>
-            <a href="https://github.com/horizonsclub" target="_blank">GitHub</a>
-        </div>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="site-header">
+            <nav class="nav-bar">
+                <h2 class="site-title"><a href="index.html">Horizons</a></h2>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li class="dropdown">
+                        <a href="articles.html">Articles ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="articles/genes.html">Genes and Genomes</a></li>
+                            <li><a href="articles/cells.html">Cells and Development</a></li>
+                            <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
+                            <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
+                            <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
+                            <li><a href="articles/biotech.html">Biotech and the Future</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="journals.html">Journals</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://github.com/horizonsclub" target="_blank">GitHub</a></li>
+                </ul>
+            </nav>
+        </header>
 
         <!-- Main content -->
-        <div class="content-container">
+        <div class="container">
             <div class="main-content">
                 <h1>Horizons: The Punahou Student Journal</h1>
                 <h2>Articles</h2>
                 <p>At Horizons, we cover a wide range of topics across the biomedical sciences—designed to be accessible and exciting. Whether you’re curious about how genes work, how the brain forms memories, or how researchers are developing new cancer therapies, our six categories are here to guide your journey through biology and beyond. <strong>Click each header</strong> to dive deeper into the topic.</p>
-                <p>We are also piloting a series of articles that covers content related to students taking AP Biology. <a href="articles/apbio.html">Click here</a> to access our AP Biology series. </p>
-                
+                <p>We are also piloting a series of articles that covers content related to students taking AP Biology. <a href="articles/apbio.html">Click here</a> to access our AP Biology series.</p>
+
                 <h3><a href="articles/genes.html">Genes and Genomes</a></h3>
                 <p>Here, we explore how DNA carries the instructions for life and how those instructions are read, regulated, and sometimes rewritten. Topics include genetics, gene expression, epigenetics, mutations, genome-editing technologies, and next-generation sequencing.</p>
-                
+
                 <h3><a href="articles/cells.html">Cells and Development</a></h3>
                 <p>From a single fertilized egg to the complexity of the human body, this category covers how cells grow, divide, specialize, and organize into tissues and organs. Topics include stem cells, cell communication, differentiation, and developmental biology.</p>
-                
+
                 <h3><a href="articles/molecules.html">Molecules and Medicine</a></h3>
                 <p>Here, we dive into how scientists use small molecules to study biology and treat disease. Topics range from pharmacology, targeted therapies, chemical biology, and how experimental drugs are discovered and tested.</p>
-                
+
                 <h3><a href="articles/neuro.html">Neuroscience and Behavior</a></h3>
                 <p>How do neurons communicate? What happens in the brain when we think, feel, or move? This category dives into how the nervous system works—from electrical signals and neurotransmitters to complex behaviors and mental health. Topics include neural circuits, sensory systems, memory, learning, neurological disorders, and the biology behind behavior.</p>
-                
+
                 <h3><a href="articles/immuno.html">Microbes and Immunity</a></h3>
                 <p>From bacteria and viruses to the powerful immune cells that defend us, this category explores the constant battle between pathogens and the body’s defenses. Topics include infectious disease, vaccines, antibiotics, the human microbiome, autoimmune disorders, and how scientists study and manipulate the immune system.</p>
-                
+
                 <h3><a href="articles/biotech.html">Biotech and the Future</a></h3>
                 <p>Explore the tools and technologies shaping the next generation of medicine and research.</p>
-
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>Horizons: The Punahou Student Journal</p>
+                <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+                <p>Made with GitHub Pages by the Horizons Web Team</p>
+            </div>
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
