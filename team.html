@@ -7,51 +7,59 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>Horizons</h2>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="team.html">Team</a>
-
-            <div class="dropdown">
-              <div class="dropdown-header">
-                <a href="articles.html" class="dropdown-link">Articles</a>
-                <button class="dropdown-toggle" aria-label="Toggle dropdown">▼</button>
-              </div>
-              <ul class="dropdown-menu">
-                <li><a href="articles/genes.html">Genes and Genomes</a></li>
-                <li><a href="articles/cells.html">Cells and Development</a></li>
-                <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
-                <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
-                <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
-                <li><a href="articles/biotech.html">Biotech and the Future</a></li>
-              </ul>
-            </div>
-            
-            <a href="journals.html">Journals</a>
-            <a href="contact.html">Contact</a>
-            <a href="https://github.com/horizonsclub" target="_blank">GitHub</a>
-        </div>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="site-header">
+            <nav class="nav-bar">
+                <h2 class="site-title"><a href="index.html">Horizons</a></h2>
+                <ul class="nav-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li class="dropdown">
+                        <a href="articles.html">Articles ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="articles/genes.html">Genes and Genomes</a></li>
+                            <li><a href="articles/cells.html">Cells and Development</a></li>
+                            <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
+                            <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
+                            <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
+                            <li><a href="articles/biotech.html">Biotech and the Future</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="journals.html">Journals</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://github.com/horizonsclub" target="_blank">GitHub</a></li>
+                </ul>
+            </nav>
+        </header>
 
         <!-- Main content -->
-        <div class="content-container">
+        <div class="container">
             <div class="main-content">
                 <h1>Horizons: The Punahou Student Journal</h1>
                 <h2>Team</h2>
 
                 <h3>Editorial Board</h3>
+                <p><!-- Add names/titles here --></p>
 
                 <h3>Staff</h3>
+                <p><!-- Add staff roles here --></p>
 
                 <h3>Advisors</h3>
                 <p>Matthew Chang</p>
-                
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>Horizons: The Punahou Student Journal</p>
+                <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+                <p>Made with GitHub Pages by the Horizons Web Team</p>
+            </div>
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
