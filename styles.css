@@ -121,12 +121,7 @@ h1, h2 {
     margin: 40px auto;
     padding: 20px;
     flex: 1;
-}
-
-.main-content {
     text-align: left;
-    width: 100%;
-    padding: 20px;
 }
 
 /* Footer */
