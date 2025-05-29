@@ -4,7 +4,6 @@ if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark-mode");
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
   // Dropdown toggle
   const toggleBtn = document.querySelector(".dropdown-toggle");
@@ -66,27 +65,6 @@ backToTopBtn?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Like button (still localStorage-based)
-const likeButton = document.getElementById("like-button");
-const likeCount = document.getElementById("like-count");
-const likeKey = `likes-${window.location.pathname}`;
-const likedKey = `liked-${window.location.pathname}`;
-let likeTotal = parseInt(localStorage.getItem(likeKey)) || 0;
-let liked = localStorage.getItem(likedKey) === "true";
-
-if (likeCount) likeCount.textContent = likeTotal;
-if (liked) likeButton?.classList.add("liked");
-
-likeButton?.addEventListener("click", () => {
-  liked = !liked;
-  likeButton.classList.toggle("liked");
-  likeTotal += liked ? 1 : -1;
-  likeCount.textContent = likeTotal;
-  localStorage.setItem(likeKey, likeTotal);
-  localStorage.setItem(likedKey, liked);
-});
-
-// Firebase comment system
 // Get the current HTML file name without extension as article ID
 const articleID = window.location.pathname
   .split("/")
@@ -96,7 +74,52 @@ const articleID = window.location.pathname
 
 console.log("articleID:", articleID); // just to verify
 
+const likesRef = db.collection("articles").doc(articleID);
 
+// Like button (Firestore-based)
+const likeButton = document.getElementById("like-button");
+const likeCount = document.getElementById("like-count");
+const userLikedKey = `liked-${window.location.pathname}`; // still use localStorage for user tracking
+
+let liked = localStorage.getItem(userLikedKey) === "true";
+
+// Fetch and display the current like count
+likesRef.get().then((doc) => {
+  if (doc.exists) {
+    const data = doc.data();
+    likeCount.textContent = data.likes || 0;
+    if (liked) likeButton.classList.add("liked");
+  } else {
+    // Create the document if it doesn't exist
+    likesRef.set({ likes: 0 });
+    likeCount.textContent = "0";
+  }
+});
+
+likesRef.onSnapshot((doc) => {
+  if (doc.exists) {
+    likeCount.textContent = doc.data().likes || 0;
+  }
+});
+
+// Handle like button click
+likeButton?.addEventListener("click", async () => {
+  liked = !liked;
+  likeButton.classList.toggle("liked");
+  localStorage.setItem(userLikedKey, liked);
+
+  try {
+    await db.runTransaction(async (transaction) => {
+      const doc = await transaction.get(likesRef);
+      const newLikes = (doc.exists ? (doc.data().likes || 0) : 0) + (liked ? 1 : -1);
+      transaction.set(likesRef, { likes: Math.max(newLikes, 0) }, { merge: true });
+    });
+  } catch (error) {
+    console.error("Error updating likes:", error);
+  }
+});
+
+// Firebase comment system
 const commentForm = document.getElementById("comment-form");
 const nameInput = document.getElementById("comment-name");
 const textInput = document.getElementById("comment-text");
