@@ -159,7 +159,6 @@ if (!hasViewed) {
 
   viewsRef.update({ views: firebase.firestore.FieldValue.increment(1) })
     .catch(async (error) => {
-      // If doc doesn't exist, create it with initial count
       if (error.code === "not-found") {
         await viewsRef.set({ views: 1 }, { merge: true });
       } else {
@@ -176,8 +175,7 @@ viewsRef.get().then((doc) => {
   }
 });
 
-
-// Comment functionality (only if present)
+// Comment system for full article pages
 const commentForm = document.getElementById("comment-form");
 const nameInput = document.getElementById("comment-name");
 const textInput = document.getElementById("comment-text");
@@ -205,10 +203,18 @@ if (commentForm && nameInput && textInput && commentList) {
     .orderBy("timestamp", "asc")
     .onSnapshot((snapshot) => {
       commentList.innerHTML = "";
+
+      // ✅ Update comment count if span exists
+      const commentCounter = document.querySelector(".comment-count");
+      if (commentCounter) {
+        commentCounter.textContent = snapshot.size;
+      }
+
       if (snapshot.empty) {
         commentList.innerHTML = `<p class="empty-message">No comments yet. Be the first to share your thoughts!</p>`;
         return;
       }
+
       snapshot.forEach((doc) => {
         const data = doc.data();
         const commentEl = document.createElement("div");
