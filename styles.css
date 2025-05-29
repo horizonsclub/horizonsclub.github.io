@@ -639,3 +639,11 @@ body.dark-mode .comment .name {
 body.dark-mode .comment .text {
   color: #ddd;
 }
+
+.card-reactions {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}

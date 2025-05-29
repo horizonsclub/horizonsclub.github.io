@@ -23,6 +23,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Load like and comment counts for article cards
+  const cards = document.querySelectorAll(".article-card");
+  console.log("Found article cards:", cards.length); // ✅ Check if this is > 0
+  
+  cards.forEach(async (card) => {
+    const articleId = card.getAttribute("data-article-id");
+    const likeEl = card.querySelector(".like-count");
+    const commentEl = card.querySelector(".comment-count");
+  
+    console.log("Processing card for:", articleId); // ✅ Confirm article ID is correct
+  
+    if (!articleId) return;
+  
+    try {
+      const docRef = db.collection("articles").doc(articleId);
+      const doc = await docRef.get();
+      if (doc.exists) {
+        console.log("Likes data:", doc.data().likes); // ✅ Log like value
+        likeEl.textContent = doc.data().likes || 0;
+      }
+  
+      const commentsSnapshot = await docRef.collection("comments").get();
+      console.log("Comments found:", commentsSnapshot.size);
+      commentEl.textContent = commentsSnapshot.size;
+    } catch (err) {
+      console.error("Error loading counts for", articleId, err);
+    }
+  });
+  
+
   // Dark mode toggle
   const toggle = document.getElementById("theme-toggle");
   toggle?.addEventListener("click", () => {
