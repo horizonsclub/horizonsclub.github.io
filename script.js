@@ -317,3 +317,32 @@ function formatTimestamp(date) {
     hour12: true,
   }).replace(",", " at");
 }
+
+document.querySelectorAll(".share-btn").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const relativeUrl = btn.getAttribute("data-url");
+    const fullUrl = `${window.location.origin}${relativeUrl}`;
+
+    if (navigator.share) {
+      // ✅ Native share on mobile/modern browsers
+      try {
+        await navigator.share({
+          title: document.title,
+          url: fullUrl,
+        });
+        console.log("Shared successfully!");
+      } catch (err) {
+        console.error("Share failed:", err);
+      }
+    } else {
+      // ✨ Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+        alert("Link copied to clipboard!");
+      } catch (err) {
+        console.error("Copy failed:", err);
+        alert("Couldn't copy the link.");
+      }
+    }
+  });
+});
