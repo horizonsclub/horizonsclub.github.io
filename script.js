@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const docRef = db.collection("articles").doc(articleId);
       const doc = await docRef.get();
+  
       if (doc.exists && likeEl) {
         likeEl.textContent = doc.data().likes || 0;
       }
@@ -58,15 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
         commentEl.textContent = totalCount;
       }
   
-      // ✅ Show views
       if (viewEl && doc.exists && doc.data().views !== undefined) {
         viewEl.textContent = doc.data().views;
       }
-
+  
     } catch (err) {
       console.error("Error loading counts for", articleId, err);
     }
   });
+  
   
 
   // Dark mode toggle
