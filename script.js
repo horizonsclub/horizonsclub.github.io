@@ -25,33 +25,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Load like and comment counts for article cards
+  // Load like/comment/view counts for article cards on index.html
   const cards = document.querySelectorAll(".article-card");
-  console.log("Found article cards:", cards.length);
-
   cards.forEach(async (card) => {
     const articleId = card.getAttribute("data-article-id");
     const likeEl = card.querySelector(".like-count");
     const commentEl = card.querySelector(".comment-count");
+    const viewEl = card.querySelector("#view-count");
 
     if (!articleId) return;
-    console.log("Processing card for:", articleId);
 
     try {
       const docRef = db.collection("articles").doc(articleId);
       const doc = await docRef.get();
-      if (doc.exists && likeEl) {
-        likeEl.textContent = doc.data().likes || 0;
-        console.log("Likes data:", doc.data().likes);
+
+      if (doc.exists) {
+        if (likeEl) likeEl.textContent = doc.data().likes || 0;
+        if (viewEl) viewEl.textContent = doc.data().views || 0;
       }
 
       const commentsSnapshot = await docRef.collection("comments").get();
-      if (commentEl) {
-        commentEl.textContent = commentsSnapshot.size;
-        console.log("Comments found:", commentsSnapshot.size);
-      }
+      let totalCount = commentsSnapshot.size;
+
+      const replyCounts = await Promise.all(commentsSnapshot.docs.map(async (docSnap) => {
+        const repliesSnapshot = await docSnap.ref.collection("replies").get();
+        return repliesSnapshot.size;
+      }));
+
+      const totalReplies = replyCounts.reduce((sum, c) => sum + c, 0);
+      totalCount += totalReplies;
+
+      if (commentEl) commentEl.textContent = totalCount;
     } catch (err) {
-      console.error("Error loading counts for", articleId, err);
+      console.error("Error loading data for", articleId, err);
     }
   });
 
@@ -97,15 +103,15 @@ backToTopBtn?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// Get article ID (for full article pages)
+// Get article ID
 const articleID = window.location.pathname
   .split("/")
   .pop()
   .replace(".html", "")
   .replace(/\W+/g, "_");
 
-console.log("articleID:", articleID);
 const likesRef = db.collection("articles").doc(articleID);
+const viewsRef = db.collection("articles").doc(articleID);
 
 // Like button functionality
 const likeButton = document.getElementById("like-button");
@@ -148,8 +154,6 @@ if (likeButton && likeCount) {
   });
 }
 
-const viewsRef = db.collection("articles").doc(articleID);
-
 // Track views once per session
 const viewedKey = `viewed-${articleID}`;
 const hasViewed = sessionStorage.getItem(viewedKey);
@@ -167,7 +171,7 @@ if (!hasViewed) {
     });
 }
 
-// Display view count
+// Display view count on full article page
 viewsRef.get().then((doc) => {
   if (doc.exists && doc.data().views !== undefined) {
     const viewEl = document.getElementById("view-count");
@@ -175,12 +179,11 @@ viewsRef.get().then((doc) => {
   }
 });
 
-// Comment system for full article pages
+// Comment system
 const commentForm = document.getElementById("comment-form");
 const nameInput = document.getElementById("comment-name");
 const textInput = document.getElementById("comment-text");
 const commentList = document.getElementById("comment-list");
-
 
 if (commentForm && nameInput && textInput && commentList) {
   commentForm.addEventListener("submit", async (e) => {
@@ -202,11 +205,21 @@ if (commentForm && nameInput && textInput && commentList) {
     .doc(articleID)
     .collection("comments")
     .orderBy("timestamp", "desc")
-    .onSnapshot((snapshot) => {
+    .onSnapshot(async (snapshot) => {
       commentList.innerHTML = "";
 
       const commentCounter = document.querySelector(".comment-count");
-      if (commentCounter) commentCounter.textContent = snapshot.size;
+      if (commentCounter) {
+        let total = snapshot.size;
+
+        const replyCounts = await Promise.all(snapshot.docs.map(async (doc) => {
+          const replies = await doc.ref.collection("replies").get();
+          return replies.size;
+        }));
+
+        total += replyCounts.reduce((sum, c) => sum + c, 0);
+        commentCounter.textContent = total;
+      }
 
       if (snapshot.empty) {
         commentList.innerHTML = `<p class="empty-message">No comments yet. Be the first to share your thoughts!</p>`;
@@ -233,13 +246,8 @@ if (commentForm && nameInput && textInput && commentList) {
 
         commentList.appendChild(commentEl);
 
-        // Load replies
         const repliesContainer = commentEl.querySelector(`#replies-${doc.id}`);
-        db.collection("articles")
-          .doc(articleID)
-          .collection("comments")
-          .doc(doc.id)
-          .collection("replies")
+        doc.ref.collection("replies")
           .orderBy("timestamp", "asc")
           .onSnapshot((replySnap) => {
             repliesContainer.innerHTML = "";
@@ -256,7 +264,7 @@ if (commentForm && nameInput && textInput && commentList) {
           });
       });
 
-      // Attach reply logic
+      // Attach reply logic after rendering
       setTimeout(() => {
         document.querySelectorAll(".reply-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
