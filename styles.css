@@ -358,3 +358,116 @@ body.dark-mode .article_author {
 body.dark-mode .article_date {
   color: #bbb;
 }
+
+/* Front page */
+
+.homepage {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.club-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.new-articles-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.article-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.article-card {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.article-card:hover {
+  background-color: #ebebeb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.article-card h3 {
+  margin: 0 0 0.5rem;
+  color: #2c3e50;
+}
+
+.article-card .author-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.article-card .excerpt {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Dark mode adjustments */
+body.dark-mode .article-card {
+  background-color: #222;
+}
+
+body.dark-mode .article-card:hover {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .article-card h3,
+body.dark-mode .article-card .author-date,
+body.dark-mode .article-card .excerpt {
+  color: #ddd;
+}
+
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.category-card {
+  background-color: #fdfdfd;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.category-card .excerpt {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Dark mode support */
+body.dark-mode .category-card {
+  background-color: #1f1f1f;
+  border-color: #333;
+}
+
+body.dark-mode .category-title,
+body.dark-mode .category-card .excerpt {
+  color: #e0e0e0;
+}
