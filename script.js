@@ -181,6 +181,7 @@ const nameInput = document.getElementById("comment-name");
 const textInput = document.getElementById("comment-text");
 const commentList = document.getElementById("comment-list");
 
+
 if (commentForm && nameInput && textInput && commentList) {
   commentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -200,15 +201,12 @@ if (commentForm && nameInput && textInput && commentList) {
   db.collection("articles")
     .doc(articleID)
     .collection("comments")
-    .orderBy("timestamp", "asc")
+    .orderBy("timestamp", "desc")
     .onSnapshot((snapshot) => {
       commentList.innerHTML = "";
 
-      // ✅ Update comment count if span exists
       const commentCounter = document.querySelector(".comment-count");
-      if (commentCounter) {
-        commentCounter.textContent = snapshot.size;
-      }
+      if (commentCounter) commentCounter.textContent = snapshot.size;
 
       if (snapshot.empty) {
         commentList.innerHTML = `<p class="empty-message">No comments yet. Be the first to share your thoughts!</p>`;
@@ -218,13 +216,76 @@ if (commentForm && nameInput && textInput && commentList) {
       snapshot.forEach((doc) => {
         const data = doc.data();
         const commentEl = document.createElement("div");
+        const replyBoxID = `reply-box-${doc.id}`;
+
         commentEl.classList.add("comment");
         commentEl.innerHTML = `
           <div class="name">${data.name} <span class="timestamp">· ${formatTimestamp(data.timestamp.toDate())}</span></div>
           <div class="text">${data.text}</div>
+          <button class="reply-btn" data-id="${doc.id}">Reply</button>
+          <div class="reply-form hidden" id="${replyBoxID}">
+            <input type="text" class="reply-name" placeholder="Your name" />
+            <textarea class="reply-text" placeholder="Write your reply..."></textarea>
+            <button class="submit-reply" data-id="${doc.id}">Post Reply</button>
+          </div>
+          <div class="replies" id="replies-${doc.id}"></div>
         `;
+
         commentList.appendChild(commentEl);
+
+        // Load replies
+        const repliesContainer = commentEl.querySelector(`#replies-${doc.id}`);
+        db.collection("articles")
+          .doc(articleID)
+          .collection("comments")
+          .doc(doc.id)
+          .collection("replies")
+          .orderBy("timestamp", "asc")
+          .onSnapshot((replySnap) => {
+            repliesContainer.innerHTML = "";
+            replySnap.forEach((replyDoc) => {
+              const reply = replyDoc.data();
+              const replyEl = document.createElement("div");
+              replyEl.classList.add("reply");
+              replyEl.innerHTML = `
+                <div class="name">${reply.name} <span class="timestamp">· ${formatTimestamp(reply.timestamp.toDate())}</span></div>
+                <div class="text">${reply.text}</div>
+              `;
+              repliesContainer.appendChild(replyEl);
+            });
+          });
       });
+
+      // Attach reply logic
+      setTimeout(() => {
+        document.querySelectorAll(".reply-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const box = document.getElementById(`reply-box-${btn.dataset.id}`);
+            box.classList.toggle("hidden");
+          });
+        });
+
+        document.querySelectorAll(".submit-reply").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const commentID = btn.dataset.id;
+            const form = btn.closest(".reply-form");
+            const name = form.querySelector(".reply-name").value.trim();
+            const text = form.querySelector(".reply-text").value.trim();
+            if (!name || !text) return;
+
+            await db.collection("articles")
+              .doc(articleID)
+              .collection("comments")
+              .doc(commentID)
+              .collection("replies")
+              .add({ name, text, timestamp: new Date() });
+
+            form.querySelector(".reply-name").value = "";
+            form.querySelector(".reply-text").value = "";
+            form.classList.add("hidden");
+          });
+        });
+      }, 100);
     });
 }
 
