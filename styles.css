@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 .site-title a {
   text-decoration: none;
   color: #333;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -320,4 +320,41 @@ body, .container, .site-header, .site-footer {
   font-style: italic;
   color: #777;
   margin-bottom: 0.5rem;
+}
+
+
+/* Articles */
+
+.article-header {
+  margin-bottom: 2rem;
+}
+
+.article_name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.article_author {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.article_date {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+body.dark-mode .article_name {
+  color: #eee;
+}
+
+body.dark-mode .article_author {
+  color: #bbb;
+}
+
+body.dark-mode .article_date {
+  color: #bbb;
 }
