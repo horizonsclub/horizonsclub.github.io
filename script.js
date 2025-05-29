@@ -75,3 +75,38 @@ backToTopBtn.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+
+// reactions.js
+
+const likeButton = document.getElementById("like-button");
+const likeCount = document.getElementById("like-count");
+
+const pageKey = `likes-${window.location.pathname}`;
+const likedKey = `liked-${window.location.pathname}`;
+
+// Load saved values
+let likeTotal = parseInt(localStorage.getItem(pageKey)) || 0;
+let liked = localStorage.getItem(likedKey) === "true";
+
+// Initialize UI
+likeCount.textContent = likeTotal;
+if (liked) likeButton.classList.add("liked");
+
+// Toggle like on click
+likeButton.addEventListener("click", () => {
+  liked = !liked;
+  likeButton.classList.toggle("liked");
+
+  if (liked) {
+    likeTotal++;
+  } else {
+    likeTotal--;
+  }
+
+  likeCount.textContent = likeTotal;
+
+  // Save to localStorage
+  localStorage.setItem(pageKey, likeTotal);
+  localStorage.setItem(likedKey, liked);
+});
