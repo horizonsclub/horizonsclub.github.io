@@ -148,6 +148,35 @@ if (likeButton && likeCount) {
   });
 }
 
+const viewsRef = db.collection("articles").doc(articleID);
+
+// Track views once per session
+const viewedKey = `viewed-${articleID}`;
+const hasViewed = sessionStorage.getItem(viewedKey);
+
+if (!hasViewed) {
+  sessionStorage.setItem(viewedKey, "true");
+
+  viewsRef.update({ views: firebase.firestore.FieldValue.increment(1) })
+    .catch(async (error) => {
+      // If doc doesn't exist, create it with initial count
+      if (error.code === "not-found") {
+        await viewsRef.set({ views: 1 }, { merge: true });
+      } else {
+        console.error("Error updating views:", error);
+      }
+    });
+}
+
+// Display view count
+viewsRef.get().then((doc) => {
+  if (doc.exists && doc.data().views !== undefined) {
+    const viewEl = document.getElementById("view-count");
+    if (viewEl) viewEl.textContent = doc.data().views;
+  }
+});
+
+
 // Comment functionality (only if present)
 const commentForm = document.getElementById("comment-form");
 const nameInput = document.getElementById("comment-name");

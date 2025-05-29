@@ -647,3 +647,7 @@ body.dark-mode .comment .text {
   display: flex;
   gap: 1rem;
 }
+
+.card-reactions span {
+  margin-left: 0.5rem;
+}
