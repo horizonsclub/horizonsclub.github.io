@@ -31,35 +31,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const articleId = card.getAttribute("data-article-id");
     const likeEl = card.querySelector(".like-count");
     const commentEl = card.querySelector(".comment-count");
-    const viewEl = card.querySelector("#view-count");
-
+    const viewEl = card.querySelector(".view-count");
+  
     if (!articleId) return;
-
+  
     try {
       const docRef = db.collection("articles").doc(articleId);
       const doc = await docRef.get();
-
-      if (doc.exists) {
-        if (likeEl) likeEl.textContent = doc.data().likes || 0;
-        if (viewEl) viewEl.textContent = doc.data().views || 0;
+      if (doc.exists && likeEl) {
+        likeEl.textContent = doc.data().likes || 0;
       }
-
+  
       const commentsSnapshot = await docRef.collection("comments").get();
       let totalCount = commentsSnapshot.size;
-
-      const replyCounts = await Promise.all(commentsSnapshot.docs.map(async (docSnap) => {
+  
+      const replyPromises = commentsSnapshot.docs.map(async (docSnap) => {
         const repliesSnapshot = await docSnap.ref.collection("replies").get();
         return repliesSnapshot.size;
-      }));
-
-      const totalReplies = replyCounts.reduce((sum, c) => sum + c, 0);
+      });
+  
+      const replyCounts = await Promise.all(replyPromises);
+      const totalReplies = replyCounts.reduce((acc, count) => acc + count, 0);
       totalCount += totalReplies;
+  
+      if (commentEl) {
+        commentEl.textContent = totalCount;
+      }
+  
+      // ✅ Show views
+      if (viewEl && doc.exists && doc.data().views !== undefined) {
+        viewEl.textContent = doc.data().views;
+      }
 
-      if (commentEl) commentEl.textContent = totalCount;
     } catch (err) {
-      console.error("Error loading data for", articleId, err);
+      console.error("Error loading counts for", articleId, err);
     }
   });
+  
 
   // Dark mode toggle
   const toggle = document.getElementById("theme-toggle");
