@@ -44,12 +44,46 @@
             <h2>Co-founder and Advisor</h2>
             <img src="../images/team/matthew_chang.JPG" alt="Matthew Chang" style="max-width: 200px;">
             <p>Matthew was born and raised in Honolulu, HI, graduated from Punahou in 2021, and is deeply committed to educating and mentoring youth. Matthew is currently working as a research assistant at Case Western Reserve University.</p>
+            <p>Favorite ice cream flavor: pralines and cream</p>
 
             <h2>Articles</h2>
-            <ul>
-                <li><a href="../articles/genes/2025_dna_structure_function.html">Inside the Double Helix: DNA Structure and Function</a></li>
-                <!-- Add more articles as needed -->
-            </ul>
+            
+            <div class="article-card" data-article-id="2025_dna_structure_function">
+                <a href="/articles/genes/2025_dna_structure_function.html">
+                    <h3>Inside the Double Helix: DNA Structure and Function</h3>
+                
+                    <div class="tag-container">
+                        <span class="tag tag-genes">Genes and Genomes</span>
+                        <span class="tag tag-summary">Topic Summary</span>
+                        <span class="tag tag-apbio">AP Biology</span>
+                    </div>
+                
+                    <p class="author-date">By Matthew Chang · May 28th, 2025</p>
+                    <p class="excerpt">
+                        Explore how the structure of DNA enables it to carry and transmit life's instructions with remarkable stability and precision. Key features like base pairing, strand directionality, and chromatin packaging reveal how DNA supports heredity and gene regulation.
+                    </p>
+              
+                    <div class="card-reactions">
+                        <div class="reaction-item">
+                        ❤️ <span class="like-count">0</span>
+                        <span class="label">Likes</span>
+                        </div>
+                    
+                        <div class="reaction-item">
+                        💬 <span class="comment-count">0</span>
+                        <span class="label">Comments</span>
+                        </div>
+                    
+                        <div class="reaction-item">
+                        👁️ <span class="view-count">0</span>
+                        <span class="label">Views</span>
+                        </div>
+                    </div>
+                  
+                </a>
+            </div>
+
+
         </main>
 
         <!-- Footer -->
@@ -64,6 +98,23 @@
     </div>
 
     <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- Firebase App and Firestore (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+        authDomain: "horizons-club.firebaseapp.com",
+        projectId: "horizons-club",
+        storageBucket: "horizons-club.appspot.com",
+        messagingSenderId: "98333507106",
+        appId: "1:98333507106:web:f5035db85d72679f00147b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    </script>
     
     <script src="../script.js"></script>
 </body>
