@@ -209,26 +209,36 @@ a:hover {
 
 /* Team */
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.team-card {
+  text-decoration: none;
+  color: inherit;
 }
 
 .team-member {
-  text-align: left;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: transform 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  max-width: 200px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #f9f9f9;
 }
 
 .team-member img {
   width: 100%;
-  max-width: 200px;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  height: auto;
   border-radius: 8px;
-  margin-bottom: 1rem;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .team-member h4 {
@@ -714,3 +724,4 @@ body.dark-mode .comment .text {
 .share-btn:hover {
   color: #3498db;
 }
+
