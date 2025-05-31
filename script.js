@@ -244,11 +244,7 @@ backToTopBtn?.addEventListener("click", () => {
 });
 
 // Get article ID
-const articleID = window.location.pathname
-  .split("/")
-  .pop()
-  .replace(".html", "")
-  .replace(/\W+/g, "_");
+const articleID = new URLSearchParams(window.location.search).get("id");
 
 const likesRef = db.collection("articles").doc(articleID);
 const viewsRef = db.collection("articles").doc(articleID);

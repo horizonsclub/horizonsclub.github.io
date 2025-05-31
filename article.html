@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading article... - Horizons</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header class="site-header">
+      <nav class="nav-bar">
+        <h2 class="site-title"><a href="index.html">Horizons</a></h2>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li class="dropdown">
+              <a href="articles.html">Articles ▼</a>
+              <ul class="dropdown-menu">
+                <li><a href="articles/genes.html">Genes and Genomes</a></li>
+                <li><a href="articles/cells.html">Cells and Development</a></li>
+                <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
+                <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
+                <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
+                <li><a href="articles/biotech.html">Biotech and the Future</a></li>
+              </ul>
+            </li>
+            <li><a href="journals.html">Journals</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <div id="article-content">
+        <h1 id="article-title">Loading...</h1>
+        <p id="article-meta"></p>
+        <div id="article-tags" class="tag-container"></div>
+
+        <!-- Reaction Box -->
+        <div class="reaction-box">
+          <div class="reaction-item">
+            <button id="like-button" aria-label="Like this article">❤️</button>
+            <span id="like-count">0</span>
+            <span class="label">Likes</span>
+          </div>
+          <div class="reaction-item">
+            💬 <span class="comment-count">0</span>
+            <span class="label">Comments</span>
+          </div>
+          <div class="reaction-item">
+            👁️ <span id="view-count">0</span>
+            <span class="label">Views</span>
+          </div>
+          <div class="reaction-item">
+            <button class="share-btn" data-url="" title="Share this article">📤</button>
+            <span class="label">Share</span>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="article-body"><p>Loading content...</p></div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+          <h2>Leave a Comment</h2>
+          <form id="comment-form">
+            <input type="text" id="comment-name" placeholder="Your name" required />
+            <textarea id="comment-text" placeholder="Write your comment here..." required></textarea>
+            <button type="submit">Post Comment</button>
+          </form>
+          <div id="comment-list"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>Horizons: The Punahou Student Journal</p>
+        <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+        <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io" target="_blank">GitHub Pages</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase App and Firestore (only if needed) -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+      authDomain: "horizons-club.firebaseapp.com",
+      projectId: "horizons-club",
+      storageBucket: "horizons-club.appspot.com",
+      messagingSenderId: "98333507106",
+      appId: "1:98333507106:web:f5035db85d72679f00147b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <!-- Load Main JS -->
+  <script src="script.js"></script>
+
+  <!-- Load article-specific data -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("id");
+
+    const tagClassMap = {
+      "Genes and Genomes": "genes",
+      "Cells and Development": "cells",
+      "Molecules and Medicine": "molecules",
+      "Neuroscience and Behavior": "neuro",
+      "Microbes and Immunity": "immuno",
+      "Biotech and the Future": "biotech",
+      "AP Biology": "apbio",
+      "Topic Summary": "summary"
+    };
+
+    if (!articleId) {
+      document.getElementById("article-content").innerHTML = "<p>❌ Article not found.</p>";
+    } else {
+      fetch("articles.json")
+        .then((res) => res.json())
+        .then((articles) => {
+          const article = articles.find(a => a.id === articleId);
+          if (!article) {
+            document.getElementById("article-content").innerHTML = "<p>❌ Article not found.</p>";
+            return;
+          }
+
+          document.title = `${article.title} - Horizons`;
+          document.getElementById("article-title").textContent = article.title;
+          document.getElementById("article-meta").textContent = `By ${article.author} · ${article.date}`;
+
+          const tagHTML = article.tags.map(tag => {
+            const key = tagClassMap[tag] || tag.toLowerCase().replace(/\s/g, "-");
+            return `<span class="tag tag-${key}">${tag}</span>`;
+          }).join("");
+          document.getElementById("article-tags").innerHTML = tagHTML;
+
+          // Load content
+          document.getElementById("article-body").innerHTML = article.content || `<p>${article.excerpt}</p>`;
+
+          // Set share button URL
+          const shareBtn = document.querySelector(".share-btn");
+          if (shareBtn) {
+            shareBtn.setAttribute("data-url", `/article.html?id=${articleId}`);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          document.getElementById("article-content").innerHTML = "<p>⚠️ Error loading article.</p>";
+        });
+    }
+  </script>
+</body>
+</html>
