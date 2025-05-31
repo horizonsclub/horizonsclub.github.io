@@ -32,43 +32,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const likeEl = card.querySelector(".like-count");
     const commentEl = card.querySelector(".comment-count");
     const viewEl = card.querySelector(".view-count");
-  
+
     if (!articleId) return;
-  
+
     try {
       const docRef = db.collection("articles").doc(articleId);
       const doc = await docRef.get();
-  
+
       if (doc.exists && likeEl) {
         likeEl.textContent = doc.data().likes || 0;
       }
-  
+
       const commentsSnapshot = await docRef.collection("comments").get();
       let totalCount = commentsSnapshot.size;
-  
+
       const replyPromises = commentsSnapshot.docs.map(async (docSnap) => {
         const repliesSnapshot = await docSnap.ref.collection("replies").get();
         return repliesSnapshot.size;
       });
-  
+
       const replyCounts = await Promise.all(replyPromises);
       const totalReplies = replyCounts.reduce((acc, count) => acc + count, 0);
       totalCount += totalReplies;
-  
+
       if (commentEl) {
         commentEl.textContent = totalCount;
       }
-  
+
       if (viewEl && doc.exists && doc.data().views !== undefined) {
         viewEl.textContent = doc.data().views;
       }
-  
     } catch (err) {
       console.error("Error loading counts for", articleId, err);
     }
   });
-  
-  
 
   // Dark mode toggle
   const toggle = document.getElementById("theme-toggle");
@@ -96,6 +93,104 @@ document.addEventListener("DOMContentLoaded", () => {
         if (paragraph) paragraph.style.display = matches ? "" : "none";
       });
     });
+  }
+
+  // Load articles dynamically for category pages
+  const articleContainer = document.getElementById("article-list");
+  const pageCategory = document.body.dataset.category;
+
+  if (articleContainer && pageCategory) {
+    fetch("/articles.json")
+      .then(res => res.json())
+      .then(articles => {
+        const filtered = articles.filter(a => a.category === pageCategory);
+        articleContainer.innerHTML = "";
+
+        const tagClassMap = {
+          "Genes and Genomes": "genes",
+          "Cells and Development": "cells",
+          "Molecules and Medicine": "molecules",
+          "Neuroscience and Behavior": "neuro",
+          "Microbes and Immunity": "immuno",
+          "Biotech and the Future": "biotech",
+          "AP Biology": "apbio",
+          "Topic Summary": "summary"
+        };
+
+        filtered.forEach(article => {
+          const tagHTML = article.tags.map(tag => {
+            const key = tagClassMap[tag] || tag.toLowerCase().replace(/\s/g, "-");
+            return `<span class="tag tag-${key}">${tag}</span>`;
+          }).join("");
+
+          const el = document.createElement("div");
+          el.className = "article-card";
+          el.setAttribute("data-article-id", article.id);
+          el.innerHTML = `
+            <a href="${article.url}">
+              <h3>${article.title}</h3>
+              <div class="tag-container">
+                ${tagHTML}
+              </div>
+              <p class="author-date">By ${article.author} · ${article.date}</p>
+              <p class="excerpt">${article.excerpt}</p>
+              <div class="card-reactions">
+                <div class="reaction-item">❤️ <span class="like-count">0</span><span class="label">Likes</span></div>
+                <div class="reaction-item">💬 <span class="comment-count">0</span><span class="label">Comments</span></div>
+                <div class="reaction-item">👁️ <span class="view-count">0</span><span class="label">Views</span></div>
+              </div>
+            </a>
+          `;
+          articleContainer.appendChild(el);
+        });
+
+        // Attach reaction counts
+        const newCards = document.querySelectorAll(".article-card");
+        newCards.forEach(async (card) => {
+          const articleId = card.getAttribute("data-article-id");
+          const likeEl = card.querySelector(".like-count");
+          const commentEl = card.querySelector(".comment-count");
+          const viewEl = card.querySelector(".view-count");
+
+          if (!articleId) return;
+
+          try {
+            const docRef = db.collection("articles").doc(articleId);
+            const doc = await docRef.get();
+
+            if (doc.exists && likeEl) {
+              likeEl.textContent = doc.data().likes || 0;
+            }
+
+            const commentsSnapshot = await docRef.collection("comments").get();
+            let totalCount = commentsSnapshot.size;
+
+            const replyPromises = commentsSnapshot.docs.map(async (docSnap) => {
+              const repliesSnapshot = await docSnap.ref.collection("replies").get();
+              return repliesSnapshot.size;
+            });
+
+            const replyCounts = await Promise.all(replyPromises);
+            const totalReplies = replyCounts.reduce((acc, count) => acc + count, 0);
+            totalCount += totalReplies;
+
+            if (commentEl) {
+              commentEl.textContent = totalCount;
+            }
+
+            if (viewEl && doc.exists && doc.data().views !== undefined) {
+              viewEl.textContent = doc.data().views;
+            }
+
+          } catch (err) {
+            console.error("Error loading counts for", articleId, err);
+          }
+        });
+      })
+      .catch(err => {
+        console.error("Error loading articles:", err);
+        articleContainer.innerHTML = `<p class="empty-message">Articles failed to load.</p>`;
+      });
   }
 });
 
