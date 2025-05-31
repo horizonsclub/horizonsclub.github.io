@@ -6,7 +6,7 @@
     <title>Microbes and Immunity - Horizons: The Punahou Student Journal</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body data-category="Microbes and Immunity">
     <div class="page-wrapper">
         <header class="site-header">
             <nav class="nav-bar">
@@ -50,6 +50,23 @@
     </div>
 
     <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- Firebase App and Firestore (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+        authDomain: "horizons-club.firebaseapp.com",
+        projectId: "horizons-club",
+        storageBucket: "horizons-club.appspot.com",
+        messagingSenderId: "98333507106",
+        appId: "1:98333507106:web:f5035db85d72679f00147b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    </script>
     
     <script src="../script.js"></script>
 </body>
