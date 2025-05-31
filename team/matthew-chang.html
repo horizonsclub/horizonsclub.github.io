@@ -1,121 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matthew Chang - Horizons: The Punahou Student Journal</title>
-    <link rel="stylesheet" href="../styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matthew Chang - Horizons: The Punahou Student Journal</title>
+  <link rel="stylesheet" href="../styles.css" />
 </head>
-<body>
-    <div class="page-wrapper">
+<body data-author="Matthew Chang">
+  <div class="page-wrapper">
+    <header class="site-header">
+      <nav class="nav-bar">
+        <h2 class="site-title"><a href="../index.html">Horizons</a></h2>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../team.html">Team</a></li>
+            <li class="dropdown"><a href="../articles.html">Articles ▼</a>
+              <ul class="dropdown-menu">
+                <li><a href="../articles/genes.html">Genes and Genomes</a></li>
+                <li><a href="../articles/cells.html">Cells and Development</a></li>
+                <li><a href="../articles/molecules.html">Molecules and Medicine</a></li>
+                <li><a href="../articles/neuro.html">Neuroscience and Behavior</a></li>
+                <li><a href="../articles/immuno.html">Microbes and Immunity</a></li>
+                <li><a href="../articles/biotech.html">Biotech and the Future</a></li>
+              </ul>
+            </li>
+            <li><a href="../journals.html">Journals</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-        <!-- Header -->
-        <header class="site-header">
-            <nav class="nav-bar">
-                <h2 class="site-title"><a href="../index.html">Horizons</a></h2>
-                <div class="nav-right">
-                    <ul class="nav-links">
-                        <li><a href="../about.html">About</a></li>
-                        <li><a href="../team.html">Team</a></li>
-                        <li class="dropdown"><a href="../articles.html">Articles ▼</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="genes.html">Genes and Genomes</a></li>
-                                <li><a href="cells.html">Cells and Development</a></li>
-                                <li><a href="molecules.html">Molecules and Medicine</a></li>
-                                <li><a href="neuro.html">Neuroscience and Behavior</a></li>
-                                <li><a href="immuno.html">Microbes and Immunity</a></li>
-                                <li><a href="biotech.html">Biotech and the Future</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="../journals.html">Journals</a></li>
-                        <li><a href="../contact.html">Contact</a></li>
-                        <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
-                    </ul>
-                    <div class="header-tools">
-                        <input type="text" id="search-input" placeholder="Search articles..." aria-label="Search" />
-                    </div>
-                </div>
-            </nav>
-        </header>
+    <main class="container">
+      <h1>Matthew Chang</h1>
+      <h2>Co-founder and Advisor</h2>
+      <img src="../images/team/matthew_chang.JPG" alt="Matthew Chang" style="max-width: 200px;" />
+      <p>Matthew was born and raised in Honolulu, HI, graduated from Punahou in 2021, and is deeply committed to educating and mentoring youth. Matthew is currently working as a research assistant at Case Western Reserve University.</p>
+      <p>Favorite ice cream flavor: pralines and cream</p>
 
-        <!-- Main content -->
-        <main class="container">
-            <h1>Matthew Chang</h1>
-            <h2>Co-founder and Advisor</h2>
-            <img src="../images/team/matthew_chang.JPG" alt="Matthew Chang" style="max-width: 200px;">
-            <p>Matthew was born and raised in Honolulu, HI, graduated from Punahou in 2021, and is deeply committed to educating and mentoring youth. Matthew is currently working as a research assistant at Case Western Reserve University.</p>
-            <p>Favorite ice cream flavor: pralines and cream</p>
+      <h2>Articles</h2>
+      <div id="author-articles"></div>
+    </main>
 
-            <h2>Articles</h2>
-            
-            <div class="article-card" data-article-id="2025_dna_structure_function">
-                <a href="/articles/genes/2025_dna_structure_function.html">
-                    <h3>Inside the Double Helix: DNA Structure and Function</h3>
-                
-                    <div class="tag-container">
-                        <span class="tag tag-genes">Genes and Genomes</span>
-                        <span class="tag tag-summary">Topic Summary</span>
-                        <span class="tag tag-apbio">AP Biology</span>
-                    </div>
-                
-                    <p class="author-date">By Matthew Chang · May 28th, 2025</p>
-                    <p class="excerpt">
-                        Explore how the structure of DNA enables it to carry and transmit life's instructions with remarkable stability and precision. Key features like base pairing, strand directionality, and chromatin packaging reveal how DNA supports heredity and gene regulation.
-                    </p>
-              
-                    <div class="card-reactions">
-                        <div class="reaction-item">
-                        ❤️ <span class="like-count">0</span>
-                        <span class="label">Likes</span>
-                        </div>
-                    
-                        <div class="reaction-item">
-                        💬 <span class="comment-count">0</span>
-                        <span class="label">Comments</span>
-                        </div>
-                    
-                        <div class="reaction-item">
-                        👁️ <span class="view-count">0</span>
-                        <span class="label">Views</span>
-                        </div>
-                    </div>
-                  
-                </a>
-            </div>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>Horizons: The Punahou Student Journal</p>
+        <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+        <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a> by the Horizons Web Team</p>
+      </div>
+    </footer>
+  </div>
 
+  <button id="back-to-top" aria-label="Back to top">↑</button>
 
-        </main>
-
-        <!-- Footer -->
-        <footer class="site-footer">
-            <div class="footer-content">
-                <p>Horizons: The Punahou Student Journal</p>
-                <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
-                <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a> by the Horizons Web Team</p>
-            </div>
-        </footer>
-
-    </div>
-
-    <button id="back-to-top" aria-label="Back to top">↑</button>
-
-    <!-- Firebase App and Firestore (compat version) -->
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-
-    <script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+  <script>
     const firebaseConfig = {
-        apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
-        authDomain: "horizons-club.firebaseapp.com",
-        projectId: "horizons-club",
-        storageBucket: "horizons-club.appspot.com",
-        messagingSenderId: "98333507106",
-        appId: "1:98333507106:web:f5035db85d72679f00147b"
+      apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+      authDomain: "horizons-club.firebaseapp.com",
+      projectId: "horizons-club",
+      storageBucket: "horizons-club.appspot.com",
+      messagingSenderId: "98333507106",
+      appId: "1:98333507106:web:f5035db85d72679f00147b"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
-    </script>
-    
-    <script src="../script.js"></script>
+  </script>
+
+  <!-- Main shared JavaScript file -->
+  <script src="../script.js"></script>
 </body>
 </html>

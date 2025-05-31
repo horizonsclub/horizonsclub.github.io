@@ -100,44 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
           latestArticlesContainer.appendChild(card);
         });
 
-        // Attach reaction counts
-        const cards = latestArticlesContainer.querySelectorAll(".article-card");
-        cards.forEach(async (card) => {
-          const articleId = card.getAttribute("data-article-id");
-          const likeEl = card.querySelector(".like-count");
-          const commentEl = card.querySelector(".comment-count");
-          const viewEl = card.querySelector(".view-count");
-
-          if (!articleId) return;
-
-          try {
-            const docRef = db.collection("articles").doc(articleId);
-            const doc = await docRef.get();
-
-            if (doc.exists && likeEl) {
-              likeEl.textContent = doc.data().likes || 0;
-            }
-
-            const commentsSnapshot = await docRef.collection("comments").get();
-            let totalCount = commentsSnapshot.size;
-
-            const replyPromises = commentsSnapshot.docs.map(async (docSnap) => {
-              const repliesSnapshot = await docSnap.ref.collection("replies").get();
-              return repliesSnapshot.size;
-            });
-
-            const replyCounts = await Promise.all(replyPromises);
-            const totalReplies = replyCounts.reduce((acc, count) => acc + count, 0);
-            totalCount += totalReplies;
-
-            if (commentEl) commentEl.textContent = totalCount;
-            if (viewEl && doc.exists && doc.data().views !== undefined) {
-              viewEl.textContent = doc.data().views;
-            }
-          } catch (err) {
-            console.error("Error loading counts for", articleId, err);
-          }
-        });
+        attachReactionCounts(document.querySelectorAll(".article-card"));
       })
       .catch((err) => {
         console.error("Failed to load latest articles:", err);
@@ -145,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Articles by category pages (like genes.html, etc.)
+  // Articles by category (like genes.html)
   const articleContainer = document.getElementById("article-list");
   const pageCategory = document.body.dataset.category;
 
@@ -153,7 +116,10 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("/articles.json")
       .then(res => res.json())
       .then(articles => {
-        const filtered = articles.filter(a => a.category === pageCategory);
+        const filtered = articles
+          .filter(a => a.category === pageCategory)
+          .sort((a, b) => new Date(a.date_raw) - new Date(b.date_raw))
+          .reverse();
         articleContainer.innerHTML = "";
 
         filtered.forEach(article => {
@@ -168,9 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
           el.innerHTML = `
             <a href="${article.url}">
               <h3>${article.title}</h3>
-              <div class="tag-container">
-                ${tagHTML}
-              </div>
+              <div class="tag-container">${tagHTML}</div>
               <p class="author-date">By ${article.author} · ${article.date}</p>
               <p class="excerpt">${article.excerpt}</p>
               <div class="card-reactions">
@@ -183,51 +147,104 @@ document.addEventListener("DOMContentLoaded", () => {
           articleContainer.appendChild(el);
         });
 
-        // Attach reaction counts
-        const newCards = articleContainer.querySelectorAll(".article-card");
-        newCards.forEach(async (card) => {
-          const articleId = card.getAttribute("data-article-id");
-          const likeEl = card.querySelector(".like-count");
-          const commentEl = card.querySelector(".comment-count");
-          const viewEl = card.querySelector(".view-count");
-
-          if (!articleId) return;
-
-          try {
-            const docRef = db.collection("articles").doc(articleId);
-            const doc = await docRef.get();
-
-            if (doc.exists && likeEl) {
-              likeEl.textContent = doc.data().likes || 0;
-            }
-
-            const commentsSnapshot = await docRef.collection("comments").get();
-            let totalCount = commentsSnapshot.size;
-
-            const replyPromises = commentsSnapshot.docs.map(async (docSnap) => {
-              const repliesSnapshot = await docSnap.ref.collection("replies").get();
-              return repliesSnapshot.size;
-            });
-
-            const replyCounts = await Promise.all(replyPromises);
-            const totalReplies = replyCounts.reduce((acc, count) => acc + count, 0);
-            totalCount += totalReplies;
-
-            if (commentEl) commentEl.textContent = totalCount;
-            if (viewEl && doc.exists && doc.data().views !== undefined) {
-              viewEl.textContent = doc.data().views;
-            }
-          } catch (err) {
-            console.error("Error loading counts for", articleId, err);
-          }
-        });
+        attachReactionCounts(document.querySelectorAll(".article-card"));
       })
       .catch(err => {
         console.error("Error loading articles:", err);
         articleContainer.innerHTML = `<p class="empty-message">Articles failed to load.</p>`;
       });
   }
+
+  // Author profile pages (like matthew-chang.html)
+  const authorContainer = document.getElementById("author-articles");
+  const pageAuthor = document.body.dataset.author;
+
+  if (authorContainer && pageAuthor) {
+    fetch("/articles.json")
+      .then(res => res.json())
+      .then(articles => {
+        const authored = articles
+          .filter(a => a.author === pageAuthor)
+          .sort((a, b) => new Date(a.date_raw) - new Date(b.date_raw))
+          .reverse(); // now descending (latest at top)
+        authorContainer.innerHTML = "";
+
+        authored.forEach(article => {
+          const tagHTML = article.tags.map(tag => {
+            const key = tagClassMap[tag] || tag.toLowerCase().replace(/\s/g, "-");
+            return `<span class="tag tag-${key}">${tag}</span>`;
+          }).join("");
+
+          const card = document.createElement("div");
+          card.className = "article-card";
+          card.setAttribute("data-article-id", article.id);
+          card.innerHTML = `
+            <a href="${article.url}">
+              <h3>${article.title}</h3>
+              <div class="tag-container">${tagHTML}</div>
+              <p class="author-date">By ${article.author} · ${article.date}</p>
+              <p class="excerpt">${article.excerpt}</p>
+              <div class="card-reactions">
+                <div class="reaction-item">❤️ <span class="like-count">0</span><span class="label">Likes</span></div>
+                <div class="reaction-item">💬 <span class="comment-count">0</span><span class="label">Comments</span></div>
+                <div class="reaction-item">👁️ <span class="view-count">0</span><span class="label">Views</span></div>
+              </div>
+            </a>
+          `;
+          authorContainer.appendChild(card);
+        });
+
+        attachReactionCounts(document.querySelectorAll(".article-card"));
+      })
+      .catch(err => {
+        console.error("Error loading authored articles:", err);
+        authorContainer.innerHTML = `<p class="empty-message">Articles failed to load.</p>`;
+      });
+  }
+
+  // Fallback attach reactions
+  const looseCards = document.querySelectorAll(".article-card[data-article-id]");
+  if (looseCards.length) {
+    attachReactionCounts(looseCards);
+  }
 });
+
+// 🔁 Shared logic: define globally
+async function attachReactionCounts(cards) {
+  for (const card of cards) {
+    const articleId = card.getAttribute("data-article-id");
+    const likeEl = card.querySelector(".like-count");
+    const commentEl = card.querySelector(".comment-count");
+    const viewEl = card.querySelector(".view-count");
+
+    if (!articleId) continue;
+
+    try {
+      const docRef = db.collection("articles").doc(articleId);
+      const doc = await docRef.get();
+
+      if (doc.exists && likeEl) likeEl.textContent = doc.data().likes || 0;
+
+      const commentsSnapshot = await docRef.collection("comments").get();
+      let totalCount = commentsSnapshot.size;
+
+      const replyCounts = await Promise.all(commentsSnapshot.docs.map(async (doc) => {
+        const replies = await doc.ref.collection("replies").get();
+        return replies.size;
+      }));
+
+      totalCount += replyCounts.reduce((sum, c) => sum + c, 0);
+
+      if (commentEl) commentEl.textContent = totalCount;
+      if (viewEl && doc.exists && doc.data().views !== undefined) {
+        viewEl.textContent = doc.data().views;
+      }
+    } catch (err) {
+      console.error("Error loading counts for", articleId, err);
+    }
+  }
+}
+
 
 
 // Back-to-top button
