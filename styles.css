@@ -130,14 +130,6 @@ a:hover {
   gap: 10px;
 }
 
-#search-input {
-  padding: 6px 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 180px;
-}
-
 #theme-toggle {
   background: none;
   border: none;
