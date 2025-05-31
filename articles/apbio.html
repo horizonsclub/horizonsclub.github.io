@@ -6,7 +6,7 @@
     <title>AP Biology - Horizons: The Punahou Student Journal</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body data-category="AP Biology">
     <div class="page-wrapper">
 
         <!-- Header -->
@@ -31,9 +31,6 @@
                         <li><a href="../contact.html">Contact</a></li>
                         <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
                     </ul>
-                    <div class="header-tools">
-                        <input type="text" id="search-input" placeholder="Search articles..." aria-label="Search" />
-                    </div>
                 </div>
             </nav>
         </header>
@@ -41,46 +38,8 @@
         <!-- Main content -->
         <div class="container">
             <h1>AP Biology</h1>
-          
-            <div class="article-card" data-article-id="2025_dna_structure_function">
-                <a href="/articles/genes/2025_dna_structure_function.html">
-                    <h3>Inside the Double Helix: DNA Structure and Function</h3>
-                
-                    <div class="tag-container">
-                        <span class="tag tag-genes">Genes and Genomes</span>
-                        <span class="tag tag-summary">Topic Summary</span>
-                        <span class="tag tag-apbio">AP Biology</span>
-                    </div>
-                
-                    <p class="author-date">By Matthew Chang · May 28th, 2025</p>
-                    <p class="excerpt">
-                        Explore how the structure of DNA enables it to carry and transmit life's instructions with remarkable stability and precision. Key features like base pairing, strand directionality, and chromatin packaging reveal how DNA supports heredity and gene regulation.
-                    </p>
-              
-                    <div class="card-reactions">
-                        <div class="reaction-item">
-                        ❤️ <span class="like-count">0</span>
-                        <span class="label">Likes</span>
-                        </div>
-                    
-                        <div class="reaction-item">
-                        💬 <span class="comment-count">0</span>
-                        <span class="label">Comments</span>
-                        </div>
-                    
-                        <div class="reaction-item">
-                        👁️ <span class="view-count">0</span>
-                        <span class="label">Views</span>
-                        </div>
-                    </div>
-                  
-                </a>
-            </div>
-
-            
-
-
-          </div>
+            <div id="article-list"></div>
+        </div>
 
         <!-- Footer -->
         <footer class="site-footer">
