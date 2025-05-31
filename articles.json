@@ -9,6 +9,17 @@
         "url": "articles/genes/2025_dna_structure_function.html",
         "category": "Genes and Genomes",
         "tags": ["Genes and Genomes", "Topic Summary", "AP Biology"]
-      }      
+      }, 
+      {
+        "id": "2025_cell_organization",
+        "title": "Cell Organization",
+        "author": "Matthew Chang",
+        "date": "May 31st, 2025",
+        "date_raw": "2025-05-31",
+        "excerpt": "description later",
+        "url": "articles/cells/2025_cell_organization.html",
+        "category": "Cells and Development",
+        "tags": ["Cells and Development", "Topic Summary", "AP Biology"]
+      }    
   ]
   

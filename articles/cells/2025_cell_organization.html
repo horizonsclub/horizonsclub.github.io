@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside the double helix: DNA structure and function - Horizons: The Punahou Student Journal</title>
+    <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="site-header">
+            <nav class="nav-bar">
+                <h2 class="site-title"><a href="../../index.html">Horizons</a></h2>
+                <div class="nav-right">
+                    <ul class="nav-links">
+                        <li><a href="../../about.html">About</a></li>
+                        <li><a href="../../team.html">Team</a></li>
+                        <li class="dropdown"><a href="../../articles.html">Articles ▼</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../genes.html">Genes and Genomes</a></li>
+                                <li><a href="../cells.html">Cells and Development</a></li>
+                                <li><a href="../molecules.html">Molecules and Medicine</a></li>
+                                <li><a href="../neuro.html">Neuroscience and Behavior</a></li>
+                                <li><a href="../immuno.html">Microbes and Immunity</a></li>
+                                <li><a href="../biotech.html">Biotech and the Future</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../../journals.html">Journals</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                        <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
+                    </ul>
+                    <div class="header-tools">
+                        <input type="text" id="search-input" placeholder="Search articles..." aria-label="Search" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container">
+            <div class="article-header">
+                <div class="article_name">Cell Organiztion</div>
+                <div class="article_author">By Matthew Chang</div>
+                <div class="article_date">Published: May 31sh, 2025</div>
+
+                <div class="reaction-box">
+                    <div class="reaction-item">
+                      <button id="like-button" aria-label="Like this article">❤️</button>
+                      <span id="like-count">0</span>
+                      <span class="label">Likes</span>
+                    </div>
+                  
+                    <div class="reaction-item">
+                      💬 <span class="comment-count">0</span>
+                      <span class="label">Comments</span>
+                    </div>
+                  
+                    <div class="reaction-item">
+                      👁️ <span id="view-count">0</span>
+                      <span class="label">Views</span>
+                    </div>
+                  
+                    <div class="reaction-item">
+                      <button class="share-btn" data-url="/articles/cells/2025_cell_organization.html" title="Share this article">📤</button>
+                      <span class="label">Share</span>
+                    </div>
+                </div>
+                  
+            
+                <div class="tag-container">
+                    <span class="tag tag-cells">Cells and Development</span>
+                    <span class="tag tag-summary">Topic Summary</span>
+                    <span class="tag tag-apbio">AP Biology</span>
+                </div>
+            </div>
+            
+            
+            <p>description to be added later</p>
+        </div>
+
+        <div class="comment-section">
+            <h2>Leave a Comment</h2>
+            <form id="comment-form">
+              <input type="text" id="comment-name" placeholder="Your name" required />
+              <textarea id="comment-text" placeholder="Write your comment here..." required></textarea>
+              <button type="submit">Post Comment</button>
+            </form>
+          
+            <div id="comment-list"></div>
+          </div>
+          
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>Horizons: The Punahou Student Journal</p>
+                <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+                <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a> by the Horizons Web Team</p>
+            </div>
+        </footer>
+    </div>
+
+    <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <!-- Firebase App and Firestore (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+        apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+        authDomain: "horizons-club.firebaseapp.com",
+        projectId: "horizons-club",
+        storageBucket: "horizons-club.appspot.com",
+        messagingSenderId: "98333507106",
+        appId: "1:98333507106:web:f5035db85d72679f00147b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
+    <script src="../../script.js"></script>
+</body>
+</html>
