@@ -725,3 +725,33 @@ body.dark-mode .comment .text {
 #author-articles {
   margin-top: 1rem;
 }
+
+.filters label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+#search-bar {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 6px 12px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.filters button:hover {
+  background-color: #ddd;
+}

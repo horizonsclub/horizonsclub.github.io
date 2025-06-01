@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search - Horizons</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="site-header">
+      <nav class="nav-bar">
+        <h2 class="site-title"><a href="index.html">Horizons</a></h2>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li class="dropdown">
+              <a href="articles.html">Articles ▼</a>
+              <ul class="dropdown-menu">
+                <li><a href="articles/genes.html">Genes and Genomes</a></li>
+                <li><a href="articles/cells.html">Cells and Development</a></li>
+                <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
+                <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
+                <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
+                <li><a href="articles/biotech.html">Biotech and the Future</a></li>
+              </ul>
+            </li>
+            <li><a href="search.html" class="active">Search</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h1>Search Articles</h1>
+      <input type="text" id="search-bar" placeholder="Search by title, author, or keywords..." />
+
+        <div class="filters">
+            <h3>Filter by Category</h3>
+            <div id="category-filters"></div>
+            <button id="clear-category">Clear Categories</button>
+        
+            <h3>Filter by Tag</h3>
+            <div id="tag-filters"></div>
+            <button id="clear-tags">Clear Tags</button>
+        </div>
+      
+
+      <div id="search-results"></div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>Horizons: The Punahou Student Journal</p>
+        <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+        <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io">GitHub Pages</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="search.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
