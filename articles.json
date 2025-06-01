@@ -16,10 +16,32 @@
         "author": "Matthew Chang",
         "date": "May 31st, 2025",
         "date_raw": "2025-05-31",
-        "excerpt": "description later",
+        "excerpt": "cell organization",
         "url": "/article.html?id=2025_cell_organization",
+        "tags": ["Cells and Development", "Topic Summary", "Case Study", "AP Biology"],
+        "content": "cell organization description"
+      },
+      {
+        "id": "2025_cell_cycle",
+        "title": "Cell Cycle",
+        "author": "Matthew Chang",
+        "date": "June 1st, 2025",
+        "date_raw": "2025-06-01",
+        "excerpt": "cell cycle",
+        "url": "/article.html?id=2025_cell_cycle",
         "tags": ["Cells and Development", "Topic Summary", "AP Biology"],
-        "content": "blah blah blah"
-      }    
+        "content": "cell cycle description"
+      },
+      {
+        "id": "2025_rna_seq",
+        "title": "RNA-sequencing",
+        "author": "Matthew Chang",
+        "date": "June 1st, 2025",
+        "date_raw": "2025-06-01",
+        "excerpt": "rna-seq",
+        "url": "/article.html?id=2025_rna_seq",
+        "tags": ["Biotech and the Future", "Topic Summary"],
+        "content": "rna-seq description"
+      }
   ]
   
