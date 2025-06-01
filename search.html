@@ -36,38 +36,41 @@
         </header>
 
         <div class="container">
-        <h1>Horizons: The Punahou Student Journal</h1>
-        <h2>Search</h2>
-        <input type="text" id="search-bar" placeholder="Search by title, author, or keywords..." />
+            <h1>Horizons: The Punahou Student Journal</h1>
+            <h2>Search</h2>
+            <input type="text" id="search-bar" placeholder="Search by title, author, or keywords..." />
 
-        <div class="filter-wrapper">
-            <div class="filter-group">
-              <h3>Filter by Category</h3>
-              <div id="category-filters"></div>
-              <button id="clear-category">Clear Categories</button>
+            <div class="filter-wrapper">
+                <div class="filter-group">
+                <h3>Filter by Category</h3>
+                <div id="category-filters"></div>
+                <button id="clear-category">Clear Categories</button>
+                </div>
+            
+                <div class="filter-group">
+                <h3>Filter by Tag</h3>
+                <div id="tag-filters"></div>
+                <button id="clear-tags">Clear Tags</button>
+                </div>
             </div>
-          
-            <div class="filter-group">
-              <h3>Filter by Tag</h3>
-              <div id="tag-filters"></div>
-              <button id="clear-tags">Clear Tags</button>
-            </div>
-        </div>
-          
-        <div class="sort-wrapper">
-            <label for="sort-select">Sort by:</label>
-            <select id="sort-select">
-                <option value="newest" selected>Newest First</option>
-                <option value="oldest">Oldest First</option>
-                <option value="title-asc">Title A-Z</option>
-                <option value="title-desc">Title Z-A</option>
-                <option value="likes-desc">Most Liked</option>
-                <option value="comments-desc">Most Commented</option>
-                <option value="views-desc">Most Viewed</option>
-            </select>
-        </div>          
+            
+            <div class="sort-wrapper">
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select">
+                    <option value="newest" selected>Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title-asc">Title A-Z</option>
+                    <option value="title-desc">Title Z-A</option>
+                    <option value="likes-desc">Most Liked</option>
+                    <option value="comments-desc">Most Commented</option>
+                    <option value="views-desc">Most Viewed</option>
+                </select>
+            </div>          
 
-        <div id="search-results"></div>
+            <div id="search-results"></div>
+
+            <button id="load-more-btn" style="display: none;">Load More Articles</button>
+
         </div>
 
         <footer class="site-footer">

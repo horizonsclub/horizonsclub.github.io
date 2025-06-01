@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const categoryFilters = document.getElementById("category-filters");
   const tagFilters = document.getElementById("tag-filters");
   const sortSelect = document.getElementById("sort-select");
+  const loadMoreBtn = document.getElementById("load-more-btn");
 
   const CATEGORIES = [
     "Genes and Genomes",
@@ -35,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let articles = [];
+  let filteredResults = [];
+  let currentDisplayIndex = 0;
+  const ARTICLES_PER_PAGE = 10;
 
   fetch("articles.json")
     .then(res => res.json())
@@ -102,18 +106,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return 0;
     });
 
-    renderResults(filtered);
+    filteredResults = filtered;
+    currentDisplayIndex = 0;
+    renderNextArticles();
   }
 
-  function renderResults(articles) {
-    resultsContainer.innerHTML = "";
+  function renderNextArticles() {
+    const nextChunk = filteredResults.slice(currentDisplayIndex, currentDisplayIndex + ARTICLES_PER_PAGE);
 
-    if (articles.length === 0) {
-      resultsContainer.innerHTML = `<p class="empty-message">No articles found.</p>`;
-      return;
+    if (currentDisplayIndex === 0) {
+      resultsContainer.innerHTML = ""; // Clear only on first render
     }
 
-    articles.forEach((article) => {
+    nextChunk.forEach((article) => {
       const card = document.createElement("div");
       card.className = "article-card";
       card.setAttribute("data-article-id", article.id);
@@ -137,6 +142,14 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       resultsContainer.appendChild(card);
     });
+
+    currentDisplayIndex += ARTICLES_PER_PAGE;
+
+    if (currentDisplayIndex >= filteredResults.length) {
+      loadMoreBtn.style.display = "none";
+    } else {
+      loadMoreBtn.style.display = "block";
+    }
   }
 
   async function enrichWithFirebaseStats(articles) {
@@ -177,6 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listeners
   searchBar.addEventListener("input", applyFilters);
   sortSelect?.addEventListener("change", applyFilters);
+  loadMoreBtn.addEventListener("click", renderNextArticles);
 
   document.getElementById("clear-category").addEventListener("click", () => {
     categoryFilters.querySelectorAll("input[type=checkbox]").forEach((cb) => {
