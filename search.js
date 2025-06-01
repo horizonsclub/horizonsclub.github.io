@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsContainer = document.getElementById("search-results");
     const categoryFilters = document.getElementById("category-filters");
     const tagFilters = document.getElementById("tag-filters");
+    const sortSelect = document.getElementById("sort-select"); // sort dropdown
   
     const CATEGORIES = [
       "Genes and Genomes",
@@ -20,17 +21,31 @@ document.addEventListener("DOMContentLoaded", () => {
       "Spotlight"
     ];
   
+    const tagClassMap = {
+      "Genes and Genomes": "genes",
+      "Cells and Development": "cells",
+      "Molecules and Medicine": "molecules",
+      "Neuroscience and Behavior": "neuro",
+      "Microbes and Immunity": "immuno",
+      "Biotech and the Future": "biotech",
+      "AP Biology": "apbio",
+      "Topic Summary": "summary",
+      "Case Study": "case",
+      "Spotlight": "spotlight"
+    };
+  
     let articles = [];
   
     // Load articles.json
     fetch("articles.json")
-      .then((res) => res.json())
-      .then((data) => {
-        articles = data;
-        renderCheckboxes(CATEGORIES, categoryFilters, "category");
-        renderCheckboxes(TAGS, tagFilters, "tag");
-        renderResults(articles);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+            articles = data;
+            renderCheckboxes(CATEGORIES, categoryFilters, "category");
+            renderCheckboxes(TAGS, tagFilters, "tag");
+            applyFilters();  // ✅ Run full filtering + sorting logic immediately
+        });
+
   
     // Create checkboxes
     function renderCheckboxes(list, container, type) {
@@ -49,9 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
       container.addEventListener("change", applyFilters);
     }
   
-    // Filter logic
+    // Apply search, filters, and sorting
     function applyFilters() {
       const query = searchBar.value.toLowerCase().trim();
+      const sortBy = sortSelect?.value || "newest";
   
       const selectedCategories = Array.from(
         categoryFilters.querySelectorAll("input[type=checkbox]:checked")
@@ -61,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tagFilters.querySelectorAll("input[type=checkbox]:checked")
       ).map((t) => t.value);
   
-      const filtered = articles.filter((article) => {
+      let filtered = articles.filter((article) => {
         const matchesSearch =
           article.title.toLowerCase().includes(query) ||
           article.author.toLowerCase().includes(query) ||
@@ -76,6 +92,20 @@ document.addEventListener("DOMContentLoaded", () => {
           selectedTags.every((tag) => article.tags.includes(tag));
   
         return matchesSearch && matchesCategory && matchesTags;
+      });
+  
+      // Sort logic
+      filtered.sort((a, b) => {
+        if (sortBy === "newest") {
+          return new Date(b.date_raw) - new Date(a.date_raw);
+        } else if (sortBy === "oldest") {
+          return new Date(a.date_raw) - new Date(b.date_raw);
+        } else if (sortBy === "title-asc") {
+          return a.title.localeCompare(b.title);
+        } else if (sortBy === "title-desc") {
+          return b.title.localeCompare(a.title);
+        }
+        return 0;
       });
   
       renderResults(filtered);
@@ -97,7 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="${article.url}">
             <h3>${article.title}</h3>
             <div class="tag-container">
-              ${article.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+              ${article.tags.map((tag) => {
+                const key = tagClassMap[tag] || tag.toLowerCase().replace(/\s/g, "-");
+                return `<span class="tag tag-${key}">${tag}</span>`;
+              }).join("")}
             </div>
             <p class="author-date">By ${article.author} · ${article.date}</p>
             <p class="excerpt">${article.excerpt}</p>
@@ -107,10 +140,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   
-    // Search bar listener
+    // Event listeners
     searchBar.addEventListener("input", applyFilters);
+    sortSelect?.addEventListener("change", applyFilters);
   
-    // Clear category filters
     document.getElementById("clear-category").addEventListener("click", () => {
       categoryFilters.querySelectorAll("input[type=checkbox]").forEach((cb) => {
         cb.checked = false;
@@ -118,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
       applyFilters();
     });
   
-    // Clear tag filters
     document.getElementById("clear-tags").addEventListener("click", () => {
       tagFilters.querySelectorAll("input[type=checkbox]").forEach((cb) => {
         cb.checked = false;

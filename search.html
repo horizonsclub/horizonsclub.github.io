@@ -7,60 +7,93 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="page-wrapper">
-    <header class="site-header">
-      <nav class="nav-bar">
-        <h2 class="site-title"><a href="index.html">Horizons</a></h2>
-        <div class="nav-right">
-          <ul class="nav-links">
-            <li><a href="about.html">About</a></li>
-            <li><a href="team.html">Team</a></li>
-            <li class="dropdown">
-              <a href="articles.html">Articles ▼</a>
-              <ul class="dropdown-menu">
-                <li><a href="articles/genes.html">Genes and Genomes</a></li>
-                <li><a href="articles/cells.html">Cells and Development</a></li>
-                <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
-                <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
-                <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
-                <li><a href="articles/biotech.html">Biotech and the Future</a></li>
-              </ul>
-            </li>
-            <li><a href="search.html" class="active">Search</a></li>
-          </ul>
+    <div class="page-wrapper">
+        <header class="site-header">
+        <nav class="nav-bar">
+            <h2 class="site-title"><a href="index.html">Horizons</a></h2>
+            <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li class="dropdown">
+                <a href="articles.html">Articles ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="articles/genes.html">Genes and Genomes</a></li>
+                    <li><a href="articles/cells.html">Cells and Development</a></li>
+                    <li><a href="articles/molecules.html">Molecules and Medicine</a></li>
+                    <li><a href="articles/neuro.html">Neuroscience and Behavior</a></li>
+                    <li><a href="articles/immuno.html">Microbes and Immunity</a></li>
+                    <li><a href="articles/biotech.html">Biotech and the Future</a></li>
+                </ul>
+                </li>
+                <li><a href="journals.html">Journals</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="search.html" class="active">Search</a></li>
+                <button id="theme-toggle" aria-label="Toggle dark mode">☀️/🌙</button>
+            </ul>
+            </div>
+        </nav>
+        </header>
+
+        <div class="container">
+        <h1>Horizons: The Punahou Student Journal</h1>
+        <h2>Search</h2>
+        <input type="text" id="search-bar" placeholder="Search by title, author, or keywords..." />
+
+        <div class="filter-wrapper">
+            <div class="filter-group">
+              <h3>Filter by Category</h3>
+              <div id="category-filters"></div>
+              <button id="clear-category">Clear Categories</button>
+            </div>
+          
+            <div class="filter-group">
+              <h3>Filter by Tag</h3>
+              <div id="tag-filters"></div>
+              <button id="clear-tags">Clear Tags</button>
+            </div>
         </div>
-      </nav>
-    </header>
+          
+        <div class="sort-wrapper">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select">
+                <option value="newest" selected>Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="title-asc">Title A-Z</option>
+                <option value="title-desc">Title Z-A</option>
+            </select>
+        </div>          
 
-    <div class="container">
-      <h1>Search Articles</h1>
-      <input type="text" id="search-bar" placeholder="Search by title, author, or keywords..." />
-
-        <div class="filters">
-            <h3>Filter by Category</h3>
-            <div id="category-filters"></div>
-            <button id="clear-category">Clear Categories</button>
-        
-            <h3>Filter by Tag</h3>
-            <div id="tag-filters"></div>
-            <button id="clear-tags">Clear Tags</button>
+        <div id="search-results"></div>
         </div>
-      
 
-      <div id="search-results"></div>
+        <footer class="site-footer">
+        <div class="footer-content">
+            <p>Horizons: The Punahou Student Journal</p>
+            <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
+            <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io">GitHub Pages</a></p>
+        </div>
+        </footer>
     </div>
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p>Horizons: The Punahou Student Journal</p>
-        <p>Contact us at <a href="mailto:horizonsclub1@gmail.com">horizonsclub1@gmail.com</a></p>
-        <p>Made with <a href="https://github.com/horizonsclub/horizonsclub.github.io">GitHub Pages</a></p>
-      </div>
-    </footer>
-  </div>
+    <script src="search.js"></script>
 
-  <script src="search.js"></script>
+    <!-- Firebase App and Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDh5o6cj1ly4F9ccYTBPM6TFHlV_cAzM3U",
+            authDomain: "horizons-club.firebaseapp.com",
+            projectId: "horizons-club",
+            storageBucket: "horizons-club.appspot.com",
+            messagingSenderId: "98333507106",
+            appId: "1:98333507106:web:f5035db85d72679f00147b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
