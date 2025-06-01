@@ -42,7 +42,7 @@
 
             <div class="filter-wrapper">
                 <div class="filter-group">
-                <h3>Filter by Category & Tag</h3>
+                <h3>Filter by Tag</h3>
                 <div id="filter-checkboxes"></div>
                 <button id="clear-filters">Clear Filters</button>
                 </div>
@@ -76,8 +76,7 @@
         </footer>
     </div>
 
-    <script src="/scripts/script.js"></script>
-    <script src="/scripts/search.js"></script>
+    <button id="back-to-top" aria-label="Back to top">↑</button>
 
     <!-- Firebase App and Firestore -->
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
@@ -94,5 +93,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
     </script>
+
+    <script src="/scripts/script.js"></script>
+    <script src="/scripts/search.js"></script>
 </body>
 </html>
