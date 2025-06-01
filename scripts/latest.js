@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "Microbes and Immunity": "immuno",
       "Biotech and the Future": "biotech",
       "AP Biology": "apbio",
-      "Topic Summary": "summary"
+      "Topic Summary": "summary",
+      "Case Study": "case",
+      "Spotlight": "spot"
     };
   
     const latestArticlesContainer = document.getElementById("latest-articles");

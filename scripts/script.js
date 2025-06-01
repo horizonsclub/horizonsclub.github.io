@@ -58,7 +58,9 @@ const tagClassMap = {
   "Microbes and Immunity": "immuno",
   "Biotech and the Future": "biotech",
   "AP Biology": "apbio",
-  "Topic Summary": "summary"
+  "Topic Summary": "summary",
+  "Case Study": "case",
+  "Spotlight": "spot"
 };
 
 // Shared logic to attach reactions (likes, comments, views)
