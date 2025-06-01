@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(res => res.json())
       .then(articles => {
         const filtered = articles
-          .filter(a => a.category === pageCategory)
+          .filter(a => a.tags.includes(pageCategory))  // ✅ match "AP Biology" in tags
           .sort((a, b) => new Date(a.date_raw) - new Date(b.date_raw))
           .reverse();
         articleContainer.innerHTML = "";
